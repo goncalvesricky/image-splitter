@@ -16,29 +16,47 @@ public class main {
 
 	public static void main(String[] args) throws Exception {
 
-		Scanner input = new Scanner(System.in);
-		System.out.print("Enter msg: ");
-		String msg = input.nextLine();
+		Scanner in = new Scanner(System.in);
+		System.out.println("1) Split message\n2) Recreate message");
+		System.out.print("Enter number of task you'd like performed: ");
+		
+		if(in.nextInt() == 1) 
+			splitImage();
+		else
+			recreateOriginal();
+		
+	}
 
+/*
+	public static BufferedImage doubleImage(BufferedImage img) {
+		
+		AffineTransform scaleTransform = AffineTransform.getScaleInstance(2, 2);
+		AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+	
+		return bilinearScaleOp.filter(img, new BufferedImage(2*img.getWidth(), 2*img.getHeight(), img.getType()));
+	}
+*/
+	
+	public static void splitImage() throws Exception {
+		
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter message: ");
+		String msg = input.nextLine();
+		
 		final BufferedImage img = ImageIO.read(new URL(
 				"http://columbia.edu/~hg2304/blank.png"));
-				
+
 		Graphics g = img.getGraphics();
 		g.setFont(g.getFont().deriveFont(30f));
 		g.setColor(Color.black);
 		g.drawString(msg, 20, img.getHeight()/2);
 		g.dispose();
-		
-		ImageIO.write(img, "png", new File("test.png"));
-//		ImageIO.write(doubleImage(img), "png", new File("double-test.png"));
+
 		BufferedImage original = img;
 
-		//1600 x 880
 		BufferedImage first = new BufferedImage(800, 440, BufferedImage.TYPE_INT_RGB);
 		BufferedImage second = new BufferedImage(800, 440, BufferedImage.TYPE_INT_RGB);
-		
-		int[] pixels = ((DataBufferInt) first.getRaster().getDataBuffer()).getData();
-		
+
 		for(int y = 0; y < original.getHeight(); y = y + 2) {
 			for(int x = 0; x < original.getWidth(); x = x + 2) {
 
@@ -94,7 +112,6 @@ public class main {
 						second.setRGB(x+1, y+1, Color.WHITE.getRGB());	
 					}
 					
-					System.out.println(rand);
 				}
 				
 			}
@@ -103,15 +120,42 @@ public class main {
 		
 		ImageIO.write(first, "png", new File("first.png"));
 		ImageIO.write(second, "png", new File("second.png"));
-		
-	}
+		System.out.println("Done! Outputted first.png and second.png");
 
-	public static BufferedImage doubleImage(BufferedImage img) {
-		
-		AffineTransform scaleTransform = AffineTransform.getScaleInstance(2, 2);
-		AffineTransformOp bilinearScaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+	}
 	
-		return bilinearScaleOp.filter(img, new BufferedImage(2*img.getWidth(), 2*img.getHeight(), img.getType()));
+	public static void recreateOriginal() throws Exception {
+		
+		Scanner in = new Scanner(System.in);
+		System.out.print("Enter first image name: ");
+		BufferedImage first = ImageIO.read(new File(in.next()));
+		System.out.print("Enter second image name: ");
+		BufferedImage second = ImageIO.read(new File(in.next()));
+		BufferedImage original = new BufferedImage(800, 440, BufferedImage.TYPE_INT_RGB);
+		
+		for(int y = 0; y < first.getHeight(); y = y + 2) {
+			for(int x = 0; x < first.getWidth(); x = x + 2) {
+				
+				if(first.getRGB(x, y) == second.getRGB(x, y)) {
+					original.setRGB(x, y, Color.WHITE.getRGB());
+					original.setRGB(x+1, y, Color.WHITE.getRGB());
+					original.setRGB(x, y+1, Color.WHITE.getRGB());
+					original.setRGB(x+1, y+1, Color.WHITE.getRGB());					
+				}
+				
+				else {
+					original.setRGB(x, y, Color.BLACK.getRGB());
+					original.setRGB(x+1, y, Color.BLACK.getRGB());
+					original.setRGB(x, y+1, Color.BLACK.getRGB());
+					original.setRGB(x+1, y+1, Color.BLACK.getRGB());										
+				}
+				
+			}
+		}
+		
+		ImageIO.write(original, "png", new File("original-recreated.png"));	
+		System.out.println("Done! Outputted original-recreated.png");
+		
 	}
 	
 }
