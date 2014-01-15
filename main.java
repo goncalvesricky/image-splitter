@@ -39,6 +39,18 @@ public class main {
 	
 	public static void splitImage() throws Exception {
 		
+		String[][] duets = new String[10][2];
+		duets[0][0] = "Coke"; duets[0][1] = "Pepsi";
+		duets[1][0] = "Hector"; duets[1][1] = "Achilles";
+		duets[2][0] = "Batman"; duets[2][1] = "Joker";
+		duets[3][0] = "Potter"; duets[3][1] = "Voldemort";
+		duets[4][0] = "Rocky"; duets[4][1] = "Apollo";
+		duets[5][0] = "Sherlock"; duets[5][1] = "Moriarty";
+		duets[6][0] = "Mozart"; duets[6][1] = "Salieri";
+		duets[7][0] = "Nike"; duets[7][1] = "Adidas";
+		duets[8][0] = "Pele"; duets[8][1] = "Maradona";
+		duets[9][0] = "Messi"; duets[9][1] = "Ronaldo";
+		
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter message: ");
 		String msg = input.nextLine();
@@ -118,9 +130,11 @@ public class main {
 			
 		}
 		
-		ImageIO.write(first, "png", new File("first.png"));
-		ImageIO.write(second, "png", new File("second.png"));
-		System.out.println("Done! Outputted first.png and second.png");
+		int index = (int) (Math.random()*10);
+		
+		ImageIO.write(first, "png", new File(duets[index][0] + ".png"));
+		ImageIO.write(second, "png", new File(duets[index][1] + ".png"));
+		System.out.println("Done! Outputted " + duets[index][0] + ".png and " + duets[index][1] + ".png");
 
 	}
 	
