@@ -57,7 +57,7 @@ public class main {
 		
 		final BufferedImage img = ImageIO.read(new URL(
 				"http://columbia.edu/~hg2304/blank.png"));
-
+		
 		Graphics g = img.getGraphics();
 		g.setFont(g.getFont().deriveFont(30f));
 		g.setColor(Color.black);
@@ -69,8 +69,8 @@ public class main {
 		BufferedImage first = new BufferedImage(800, 440, BufferedImage.TYPE_INT_RGB);
 		BufferedImage second = new BufferedImage(800, 440, BufferedImage.TYPE_INT_RGB);
 
-		for(int y = 0; y < original.getHeight(); y = y + 2) {
-			for(int x = 0; x < original.getWidth(); x = x + 2) {
+		for(int y = 0; y < original.getHeight(); y++) {
+			for(int x = 0; x < original.getWidth(); x++) {
 
 				int rand = (int) (Math.random()*2);
 				
@@ -78,24 +78,10 @@ public class main {
 					
 					if(rand == 0) {
 						first.setRGB(x, y, Color.WHITE.getRGB());
-						first.setRGB(x+1, y, Color.BLACK.getRGB());
-						first.setRGB(x, y+1, Color.BLACK.getRGB());
-						first.setRGB(x+1, y+1, Color.WHITE.getRGB());
 						second.setRGB(x, y, Color.WHITE.getRGB());
-						second.setRGB(x+1, y, Color.BLACK.getRGB());
-						second.setRGB(x, y+1, Color.BLACK.getRGB());
-						second.setRGB(x+1, y+1, Color.WHITE.getRGB());
-					}
-					
-					else if(rand == 1) {
+					} else if(rand == 1) {
 						first.setRGB(x, y, Color.BLACK.getRGB());
-						first.setRGB(x+1, y, Color.WHITE.getRGB());
-						first.setRGB(x, y+1, Color.WHITE.getRGB());
-						first.setRGB(x+1, y+1, Color.BLACK.getRGB());
 						second.setRGB(x, y, Color.BLACK.getRGB());
-						second.setRGB(x+1, y, Color.WHITE.getRGB());
-						second.setRGB(x, y+1, Color.WHITE.getRGB());
-						second.setRGB(x+1, y+1, Color.BLACK.getRGB());						
 					}
 					
 				}
@@ -104,24 +90,10 @@ public class main {
 
 					if(rand == 0) {
 						first.setRGB(x, y, Color.WHITE.getRGB());
-						first.setRGB(x+1, y, Color.BLACK.getRGB());
-						first.setRGB(x, y+1, Color.BLACK.getRGB());
-						first.setRGB(x+1, y+1, Color.WHITE.getRGB());
 						second.setRGB(x, y, Color.BLACK.getRGB());
-						second.setRGB(x+1, y, Color.WHITE.getRGB());
-						second.setRGB(x, y+1, Color.WHITE.getRGB());
-						second.setRGB(x+1, y+1, Color.BLACK.getRGB());						
-					}
-					
-					else if(rand == 1) {
+					} else if(rand == 1) {
 						first.setRGB(x, y, Color.BLACK.getRGB());
-						first.setRGB(x+1, y, Color.WHITE.getRGB());
-						first.setRGB(x, y+1, Color.WHITE.getRGB());
-						first.setRGB(x+1, y+1, Color.BLACK.getRGB());
 						second.setRGB(x, y, Color.WHITE.getRGB());
-						second.setRGB(x+1, y, Color.BLACK.getRGB());
-						second.setRGB(x, y+1, Color.BLACK.getRGB());
-						second.setRGB(x+1, y+1, Color.WHITE.getRGB());	
 					}
 					
 				}
@@ -147,21 +119,13 @@ public class main {
 		BufferedImage second = ImageIO.read(new File(in.next()));
 		BufferedImage original = new BufferedImage(800, 440, BufferedImage.TYPE_INT_RGB);
 		
-		for(int y = 0; y < first.getHeight(); y = y + 2) {
-			for(int x = 0; x < first.getWidth(); x = x + 2) {
+		for(int y = 0; y < first.getHeight(); y++) {
+			for(int x = 0; x < first.getWidth(); x++) {
 				
 				if(first.getRGB(x, y) == second.getRGB(x, y)) {
 					original.setRGB(x, y, Color.WHITE.getRGB());
-					original.setRGB(x+1, y, Color.WHITE.getRGB());
-					original.setRGB(x, y+1, Color.WHITE.getRGB());
-					original.setRGB(x+1, y+1, Color.WHITE.getRGB());					
-				}
-				
-				else {
+				} else {
 					original.setRGB(x, y, Color.BLACK.getRGB());
-					original.setRGB(x+1, y, Color.BLACK.getRGB());
-					original.setRGB(x, y+1, Color.BLACK.getRGB());
-					original.setRGB(x+1, y+1, Color.BLACK.getRGB());										
 				}
 				
 			}
