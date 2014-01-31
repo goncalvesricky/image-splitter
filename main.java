@@ -58,6 +58,15 @@ public class main {
 		final BufferedImage img = ImageIO.read(new URL(
 				"http://columbia.edu/~hg2304/blank.png"));
 		
+		for(int y = 0; y < img.getHeight(); y++) {
+			for(int x = 0; x < img.getWidth(); x++) {
+				
+				if(Math.random() < .33)
+					img.setRGB(x, y, Color.BLACK.getRGB());
+				
+			}
+		}
+		
 		Graphics g = img.getGraphics();
 		g.setFont(g.getFont().deriveFont(30f));
 		g.setColor(Color.black);
